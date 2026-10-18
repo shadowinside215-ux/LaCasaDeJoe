@@ -1,0 +1,327 @@
+{
+  "entities": {
+    "businessSettings": {
+      "title": "BusinessSettings",
+      "description": "Global settings for La Casa De Joe seafood restaurant",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Restaurant brand name",
+          "maxLength": 100
+        },
+        "type": {
+          "type": "string",
+          "description": "Restaurant cuisine classification",
+          "maxLength": 100
+        },
+        "address": {
+          "type": "string",
+          "description": "Full street and city address in Sala Al Jadida",
+          "maxLength": 300
+        },
+        "phone": {
+          "type": "string",
+          "description": "Official contact phone number",
+          "maxLength": 40
+        },
+        "googleMapsPlusCode": {
+          "type": "string",
+          "description": "Google Maps Plus Code location code",
+          "maxLength": 60
+        },
+        "googleMapsUrl": {
+          "type": "string",
+          "description": "External Google Maps URL for directions",
+          "maxLength": 500
+        },
+        "googleRating": {
+          "type": "number",
+          "description": "Google review aggregate score"
+        },
+        "googleReviewsCount": {
+          "type": "number",
+          "description": "Total verified Google reviews count"
+        },
+        "priceRange": {
+          "type": "string",
+          "description": "Reported price range per person",
+          "maxLength": 100
+        },
+        "service": {
+          "type": "string",
+          "description": "Service model such as Dine-in",
+          "maxLength": 100
+        },
+        "closingTime": {
+          "type": "string",
+          "description": "Closing time text",
+          "maxLength": 50
+        },
+        "scheduleNote": {
+          "type": "string",
+          "description": "Schedule confirmation status",
+          "maxLength": 200
+        },
+        "glovoUrl": {
+          "type": "string",
+          "description": "Configurable Glovo listing URL",
+          "maxLength": 500
+        },
+        "instagramUrl": {
+          "type": "string",
+          "description": "Configurable Instagram URL",
+          "maxLength": 500
+        },
+        "heroHeadline": {
+          "type": "string",
+          "description": "Hero section title",
+          "maxLength": 200
+        },
+        "heroSubheadline": {
+          "type": "string",
+          "description": "Hero section description text",
+          "maxLength": 600
+        },
+        "storyText": {
+          "type": "string",
+          "description": "Story and brand introduction text",
+          "maxLength": 1000
+        },
+        "cloudinaryCloudName": {
+          "type": "string",
+          "description": "Configurable Cloudinary cloud name",
+          "maxLength": 100
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update"
+        },
+        "updatedBy": {
+          "type": "string",
+          "description": "UID of updating administrator",
+          "maxLength": 128
+        }
+      },
+      "required": ["name", "address", "phone"]
+    },
+    "menuCategory": {
+      "title": "MenuCategory",
+      "description": "Category for classifying dishes on the menu",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "description": "Category title",
+          "maxLength": 80
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-safe slug",
+          "maxLength": 80
+        },
+        "order": {
+          "type": "number",
+          "description": "Sort ordering index"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short category description",
+          "maxLength": 300
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Whether category is active and visible"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["id", "name", "order", "isActive"]
+    },
+    "menuItem": {
+      "title": "MenuItem",
+      "description": "Individual seafood or restaurant dish item",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique item identifier",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "description": "Dish title",
+          "maxLength": 100
+        },
+        "description": {
+          "type": "string",
+          "description": "Dish culinary description",
+          "maxLength": 600
+        },
+        "price": {
+          "type": "number",
+          "description": "Confirmed price in MAD if available"
+        },
+        "priceOnRequest": {
+          "type": "boolean",
+          "description": "Flag indicating price is unconfirmed or upon request"
+        },
+        "categoryId": {
+          "type": "string",
+          "description": "Associated category ID",
+          "maxLength": 128
+        },
+        "categoryName": {
+          "type": "string",
+          "description": "Denormalized category name",
+          "maxLength": 80
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Cloudinary or hosted image URL",
+          "maxLength": 800
+        },
+        "imageAlt": {
+          "type": "string",
+          "description": "Descriptive accessibility image text",
+          "maxLength": 200
+        },
+        "isAvailable": {
+          "type": "boolean",
+          "description": "Item availability status"
+        },
+        "isFeatured": {
+          "type": "boolean",
+          "description": "Whether highlighted in signature dishes"
+        },
+        "dietary": {
+          "type": "string",
+          "description": "Comma-separated or formatted dietary tags",
+          "maxLength": 300
+        },
+        "order": {
+          "type": "number",
+          "description": "Sort order"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["id", "name", "categoryId", "isAvailable", "isFeatured"]
+    },
+    "galleryItem": {
+      "title": "GalleryItem",
+      "description": "Atmosphere or food photograph item for the gallery",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique gallery identifier",
+          "maxLength": 128
+        },
+        "title": {
+          "type": "string",
+          "description": "Photo title",
+          "maxLength": 100
+        },
+        "caption": {
+          "type": "string",
+          "description": "Short descriptive caption",
+          "maxLength": 400
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Cloudinary image URL",
+          "maxLength": 800
+        },
+        "category": {
+          "type": "string",
+          "description": "Gallery grouping category",
+          "maxLength": 60
+        },
+        "altText": {
+          "type": "string",
+          "description": "Accessibility alt text",
+          "maxLength": 200
+        },
+        "isFeatured": {
+          "type": "boolean",
+          "description": "Whether to prioritize in highlights"
+        },
+        "order": {
+          "type": "number",
+          "description": "Display order"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["id", "title", "imageUrl", "altText"]
+    },
+    "admin": {
+      "title": "Admin",
+      "description": "Authorized administrator",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Administrator Google email",
+          "maxLength": 150
+        },
+        "role": {
+          "type": "string",
+          "description": "Role level",
+          "maxLength": 50
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Added timestamp"
+        }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/settings/{settingId}": {
+      "schema": "businessSettings",
+      "description": "Stores general business, contact and reputation configurations"
+    },
+    "/menuCategories/{categoryId}": {
+      "schema": "menuCategory",
+      "description": "Categories for grouping menu items"
+    },
+    "/menuItems/{itemId}": {
+      "schema": "menuItem",
+      "description": "Dish items displayed on the digital menu"
+    },
+    "/gallery/{galleryId}": {
+      "schema": "galleryItem",
+      "description": "Visual gallery photos of dishes and restaurant atmosphere"
+    },
+    "/admins/{adminId}": {
+      "schema": "admin",
+      "description": "Authorized administrator user accounts"
+    }
+  }
+}

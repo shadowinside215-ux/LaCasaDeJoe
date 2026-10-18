@@ -1,0 +1,6 @@
+{
+  "name": "La Casa De Joe - Seafood Restaurant",
+  "description": "Premium Mediterranean seafood restaurant in Sala Al Jadida, Morocco. Sizzling gambas al ajillo, crispy calamari, seafood risotto, and coastal delicacies.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,70 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny all access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    // Bootstrapped admin check: check either user email matches runtime admin or exists in admins collection
+    function isAdmin() {
+      return isVerifiedUser() && (
+        request.auth.token.email == 'dragonballsam86@gmail.com' ||
+        request.auth.token.email == 'dragonballsam86@gmai.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Business Settings: Publicly readable, writeable only by verified admin
+    match /settings/{settingId} {
+      allow read: if isValidId(settingId);
+      allow create, update, delete: if isValidId(settingId) && isAdmin();
+    }
+
+    // Menu Categories: Publicly readable for restaurant visitors, writeable by admin
+    match /menuCategories/{categoryId} {
+      allow read: if isValidId(categoryId);
+      allow create, update, delete: if isValidId(categoryId) && isAdmin();
+    }
+
+    // Menu Items: Publicly readable, writeable by admin
+    match /menuItems/{itemId} {
+      allow read: if isValidId(itemId);
+      allow create, update, delete: if isValidId(itemId) && isAdmin();
+    }
+
+    // Gallery: Publicly readable, writeable by admin
+    match /gallery/{imageId} {
+      allow read: if isValidId(imageId);
+      allow create, update, delete: if isValidId(imageId) && isAdmin();
+    }
+
+    // Admin collection: Readable and writeable only by admin
+    match /admins/{adminId} {
+      allow read: if isValidId(adminId) && isAdmin();
+      allow write: if isValidId(adminId) && isAdmin();
+    }
+  }
+}
