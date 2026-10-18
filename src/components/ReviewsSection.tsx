@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { Star, ExternalLink, CheckCircle, Quote } from 'lucide-react';
 import { BusinessSettings } from '../types/restaurant.ts';
 
@@ -43,7 +44,13 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ settings }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Block with Prominent Score */}
-        <div className="max-w-4xl mx-auto text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-4xl mx-auto text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#c49756] font-medium mb-3">
             <CheckCircle className="w-3.5 h-3.5 text-[#c49756]" />
             <span>Verified Customer Reputation</span>
@@ -81,13 +88,18 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ settings }) => {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Themed Review Cards */}
+        {/* Themed Review Cards with Staggered Scroll Entrance */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {verifiedThemes.map((item, idx) => (
-            <div
+            <motion.div
               key={idx}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
               className="bg-[#101927] border border-[#1d2d44] hover:border-[#c49756]/40 rounded-lg p-6 flex flex-col justify-between transition-colors shadow-sm"
             >
               <div>
@@ -112,22 +124,28 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ settings }) => {
               <div className="pt-3 border-t border-[#1a293d] text-xs text-[#7d93ae]">
                 {item.detail}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Read Reviews Call to Action */}
-        <div className="text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center"
+        >
           <a
             href={googleReviewUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#152338] hover:bg-[#1d314e] border border-[#273d5e] text-[#f4efe6] text-xs font-semibold uppercase tracking-wider rounded transition-colors shadow-md hover:shadow-black/30"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#152338] hover:bg-[#1d314e] border border-[#273d5e] text-[#f4efe6] text-xs font-semibold uppercase tracking-wider rounded transition-colors shadow-md hover:shadow-black/30 hover:scale-105"
           >
             <span>Read Verified Google Reviews</span>
             <ExternalLink className="w-4 h-4 text-[#c49756]" />
           </a>
-        </div>
+        </motion.div>
 
       </div>
     </section>

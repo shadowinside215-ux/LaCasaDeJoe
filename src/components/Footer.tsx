@@ -165,7 +165,7 @@ export const Footer: React.FC<FooterProps> = ({
                 >
                   <div className="flex items-center gap-2">
                     <Instagram className="w-3.5 h-3.5 text-[#c49756]" />
-                    <span>Instagram</span>
+                    <span>Instagram @la_casa_de_joe</span>
                   </div>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>

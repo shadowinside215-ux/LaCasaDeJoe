@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { Anchor, Waves, Users, HeartHandshake, Star } from 'lucide-react';
 import { BusinessSettings } from '../types/restaurant.ts';
 
@@ -31,14 +32,20 @@ export const StorySection: React.FC<StorySectionProps> = ({ settings }) => {
   ];
 
   return (
-    <section id="story" className="py-24 bg-[#0a111c] border-t border-[#18263a]">
+    <section id="story" className="py-24 bg-[#0a111c] border-t border-[#18263a] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Balanced Editorial Layout (No stock pictures) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Editorial Card */}
-          <div className="lg:col-span-5">
+          <motion.div
+            initial={{ opacity: 0, x: -35 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5"
+          >
             <div className="bg-[#0f1a2c] border border-[#22354f] rounded-2xl p-8 sm:p-10 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#c49756]/5 rounded-full blur-2xl pointer-events-none" />
               
@@ -73,10 +80,16 @@ export const StorySection: React.FC<StorySectionProps> = ({ settings }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Text & Pillars */}
-          <div className="lg:col-span-7">
+          <motion.div
+            initial={{ opacity: 0, x: 35 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7"
+          >
             <div className="text-xs uppercase tracking-widest text-[#c49756] font-medium mb-3">
               Our Culinary Heritage
             </div>
@@ -93,12 +106,20 @@ export const StorySection: React.FC<StorySectionProps> = ({ settings }) => {
               Whether you are stopping in for a relaxed lunch, a family dinner, or an evening gathering with fresh seafood, our kitchen brings passion, tradition, and respect for maritime dining to every table.
             </p>
 
-            {/* 4 Pillars Grid */}
+            {/* 4 Pillars Grid with Staggered Entrance */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-[#1e2f47]">
-              {pillars.map((pillar) => {
+              {pillars.map((pillar, idx) => {
                 const Icon = pillar.icon;
                 return (
-                  <div key={pillar.title} className="flex items-start gap-3.5">
+                  <motion.div
+                    key={pillar.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 + idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    whileHover={{ x: 3, transition: { duration: 0.2 } }}
+                    className="flex items-start gap-3.5"
+                  >
                     <div className="p-2.5 rounded bg-[#132034] text-[#c49756] border border-[#23354f] shrink-0">
                       <Icon className="w-4 h-4" />
                     </div>
@@ -110,12 +131,12 @@ export const StorySection: React.FC<StorySectionProps> = ({ settings }) => {
                         {pillar.description}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
 

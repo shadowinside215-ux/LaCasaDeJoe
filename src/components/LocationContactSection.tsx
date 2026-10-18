@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { MapPin, Phone, Clock, Navigation, Instagram, ShoppingBag, ExternalLink, ShieldCheck } from 'lucide-react';
 import { BusinessSettings } from '../types/restaurant.ts';
 
@@ -11,11 +12,17 @@ export const LocationContactSection: React.FC<LocationContactSectionProps> = ({ 
   const googleMapsDirectionsUrl = settings.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=La+Casa+De+Joe+Sala+Al+Jadida`;
 
   return (
-    <section id="location" className="py-24 bg-[#0a111c] border-t border-[#18273d]">
+    <section id="location" className="py-24 bg-[#0a111c] border-t border-[#18273d] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#c49756] font-medium mb-3">
             <Navigation className="w-3.5 h-3.5" />
             <span>Visit Us in Sala Al Jadida</span>
@@ -26,13 +33,19 @@ export const LocationContactSection: React.FC<LocationContactSectionProps> = ({ 
           <p className="text-[#a0b3cc] text-base leading-relaxed">
             Conveniently situated along Avenue Hassan II. Join us for a delightful dine-in seafood meal or place an order via Glovo.
           </p>
-        </div>
+        </motion.div>
 
         {/* 2-Column Grid: Contact Information & Interactive Map */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Information Column (5 cols) */}
-          <div className="lg:col-span-5 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 space-y-6"
+          >
             
             {/* Address Card */}
             <div className="bg-[#101927] border border-[#1d2d44] rounded-lg p-6">
@@ -160,7 +173,7 @@ export const LocationContactSection: React.FC<LocationContactSectionProps> = ({ 
                 >
                   <div className="flex items-center gap-2.5">
                     <Instagram className="w-4 h-4 text-[#d4a86a]" />
-                    <span>Follow on Instagram</span>
+                    <span>Follow @la_casa_de_joe on Instagram</span>
                   </div>
                   <ExternalLink className="w-4 h-4 text-[#8ea3c0]" />
                 </a>
@@ -177,10 +190,16 @@ export const LocationContactSection: React.FC<LocationContactSectionProps> = ({ 
               )}
             </div>
 
-          </div>
+          </motion.div>
 
           {/* Interactive Map Column (7 cols) */}
-          <div className="lg:col-span-7">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7"
+          >
             <div className="bg-[#101927] border border-[#1d2d44] rounded-lg overflow-hidden shadow-xl">
               
               <div className="p-4 bg-[#142133] border-b border-[#1d2d44] flex items-center justify-between text-xs">
@@ -224,7 +243,7 @@ export const LocationContactSection: React.FC<LocationContactSectionProps> = ({ 
               </div>
 
             </div>
-          </div>
+          </motion.div>
 
         </div>
 

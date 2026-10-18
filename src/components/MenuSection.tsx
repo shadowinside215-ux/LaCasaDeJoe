@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { ShoppingBag, Phone, UtensilsCrossed, ArrowUpRight, Clock, MapPin } from 'lucide-react';
 import { MenuCategory, MenuItem } from '../types/restaurant.ts';
 
@@ -13,6 +14,7 @@ interface MenuSectionProps {
 export const MenuSection: React.FC<MenuSectionProps> = ({
   categories,
   items,
+  onSelectDish,
   glovoUrl = 'https://glovoapp.com/fr/ma/technopolis/stores/la-casa-de-joe-tec?utm_medium=organic&utm_campaign=google_reserve_place_order_action&utm_source=google',
   phone = '+212 688-939826',
 }) => {
@@ -28,8 +30,14 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
     <section id="menu" className="py-24 bg-[#0b1320] border-t border-[#18263a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        {/* Header with Smooth Scroll InView */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center max-w-3xl mx-auto mb-14"
+        >
           <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#c49756] font-medium mb-3">
             <UtensilsCrossed className="w-3.5 h-3.5" />
             <span>Mediterranean Seafood Menu</span>
@@ -40,10 +48,16 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
           <p className="text-[#a0b3cc] text-base leading-relaxed">
             Authentic coastal dishes prepared fresh in Sala Al Jadida. Order online directly via Glovo or join us for dine-in service.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Glovo Ordering Callout Strip */}
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#14233a] via-[#101b2c] to-[#14233a] border border-[#22354f] rounded-xl p-6 sm:p-8 mb-12 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+        {/* Glovo Ordering Callout Strip with Smooth Scale */}
+        <motion.div
+          initial={{ opacity: 0, y: 25, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-4xl mx-auto bg-gradient-to-r from-[#14233a] via-[#101b2c] to-[#14233a] border border-[#22354f] rounded-xl p-6 sm:p-8 mb-12 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6"
+        >
           <div className="text-center sm:text-left">
             <div className="inline-flex items-center gap-2 px-2.5 py-0.5 bg-[#e9aa37]/15 text-[#f5bd56] text-xs font-semibold rounded mb-2">
               <ShoppingBag className="w-3.5 h-3.5" />
@@ -61,15 +75,21 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
             href={glovoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 bg-[#e9aa37] hover:bg-[#f5b84a] text-[#0b1320] text-xs font-semibold uppercase tracking-wider rounded transition-all shadow-md hover:shadow-[#e9aa37]/20 flex items-center gap-2 whitespace-nowrap shrink-0"
+            className="px-6 py-3 bg-[#e9aa37] hover:bg-[#f5b84a] text-[#0b1320] text-xs font-semibold uppercase tracking-wider rounded transition-all shadow-md hover:shadow-[#e9aa37]/20 flex items-center gap-2 whitespace-nowrap shrink-0 hover:scale-105"
           >
             <span>Order on Glovo</span>
             <ArrowUpRight className="w-4 h-4" />
           </a>
-        </div>
+        </motion.div>
 
         {/* Category Filters (Segmented tabs) */}
-        <div className="flex items-center justify-center gap-2 overflow-x-auto pb-4 mb-10 scrollbar-none">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="flex items-center justify-center gap-2 overflow-x-auto pb-4 mb-10 scrollbar-none"
+        >
           <button
             onClick={() => setSelectedCategory('all')}
             className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded transition-colors whitespace-nowrap cursor-pointer ${
@@ -96,7 +116,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
               </button>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Dish List with Zero Pictures */}
         {filteredItems.length === 0 ? (
@@ -111,10 +131,16 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
-            {filteredItems.map((item) => (
-              <div
+            {filteredItems.map((item, idx) => (
+              <motion.div
                 key={item.id}
-                className="bg-[#101927] border border-[#1e2f47] hover:border-[#c49756]/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-200 shadow-md group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, delay: Math.min(idx * 0.1, 0.4), ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                className="bg-[#101927] border border-[#1e2f47] hover:border-[#c49756]/50 rounded-xl p-6 flex flex-col justify-between transition-colors shadow-md group cursor-pointer"
+                onClick={() => onSelectDish(item)}
               >
                 <div>
                   <div className="flex items-start justify-between gap-3 mb-2">
@@ -140,13 +166,14 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
                     href={glovoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
                     className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#f5bd56] hover:text-white transition-colors"
                   >
                     <span>Order via Glovo</span>
                     <ArrowUpRight className="w-3 h-3" />
                   </a>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         )}

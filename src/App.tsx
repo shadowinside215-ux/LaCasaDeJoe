@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { motion, useScroll, useSpring } from 'motion/react';
 import { AuthProvider } from './lib/authContext.tsx';
 import { Navbar } from './components/Navbar.tsx';
 import { HeroSection } from './components/HeroSection.tsx';
@@ -109,8 +110,22 @@ function RestaurantApp() {
     }, 100);
   };
 
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
-    <div className="min-h-screen bg-[#0b1320] text-[#f4efe6] flex flex-col font-sans-clean">
+    <div className="min-h-screen bg-[#0b1320] text-[#f4efe6] flex flex-col font-sans-clean selection:bg-[#c49756] selection:text-[#0b1320]">
+      {/* Luxury Scroll Reading Progress Bar */}
+      {activeView === 'site' && (
+        <motion.div
+          style={{ scaleX, transformOrigin: '0%' }}
+          className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#c49756] via-[#f5bd56] to-[#e0b77b] z-[70] pointer-events-none shadow-[0_0_10px_rgba(196,151,86,0.6)]"
+        />
+      )}
       
       {/* Universal Luxury Navbar */}
       <Navbar

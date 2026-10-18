@@ -76,7 +76,7 @@ export const INITIAL_BUSINESS_SETTINGS: BusinessSettings = {
   closingTime: '9:00 PM',
   scheduleNote: 'Reported closing time is 9 PM. Complete weekly schedule should be confirmed with the restaurant before publication.',
   glovoUrl: 'https://glovoapp.com/fr/ma/technopolis/stores/la-casa-de-joe-tec?utm_medium=organic&utm_campaign=google_reserve_place_order_action&utm_source=google',
-  instagramUrl: '', // Configurable in admin
+  instagramUrl: 'https://www.instagram.com/la_casa_de_joe/?hl=en',
   heroHeadline: 'A Taste of the Mediterranean.',
   heroSubheadline: 'Discover the flavors of the sea at La Casa De Joe. Fresh seafood specialties and an authentic Mediterranean dining experience in Sala Al Jadida.',
   storyText: 'At La Casa De Joe, the flavors of the sea meet the warmth of Mediterranean hospitality. Inspired by Spanish culinary traditions and a love of seafood, the restaurant offers a welcoming place to gather around good food and enjoy a memorable meal in Sala Al Jadida.',
@@ -154,7 +154,12 @@ export async function getBusinessSettings(): Promise<BusinessSettings> {
     const docRef = doc(db, 'settings', 'business');
     const snapshot = await getDoc(docRef);
     if (snapshot.exists()) {
-      return snapshot.data() as BusinessSettings;
+      const data = snapshot.data() as BusinessSettings;
+      return {
+        ...INITIAL_BUSINESS_SETTINGS,
+        ...data,
+        instagramUrl: data.instagramUrl || 'https://www.instagram.com/la_casa_de_joe/?hl=en',
+      };
     }
     return INITIAL_BUSINESS_SETTINGS;
   } catch (error) {

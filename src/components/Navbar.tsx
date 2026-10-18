@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, Utensils, Shield, ArrowUpRight } from 'lucide-react';
+import { Menu, X, Phone, Utensils, Shield, ArrowUpRight, Instagram } from 'lucide-react';
 import { useAuth } from '../lib/authContext.tsx';
 import { BusinessSettings } from '../types/restaurant.ts';
 
@@ -107,6 +107,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="tabular-nums font-medium">{settings.phone}</span>
             </a>
 
+            {/* Instagram Quick Link (Desktop) */}
+            {settings.instagramUrl && (
+              <a
+                href={settings.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex items-center justify-center p-2 text-[#a0b3cc] hover:text-[#d4a86a] hover:bg-[#162238] rounded-md transition-colors"
+                title="Follow on Instagram @la_casa_de_joe"
+                aria-label="Instagram profile"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+            )}
+
             {/* Admin Switcher (Hidden in public site view) */}
             {activeView === 'admin' && (
               <button
@@ -182,6 +196,21 @@ export const Navbar: React.FC<NavbarProps> = ({
                   >
                     <span>Order on Glovo</span>
                     <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                )}
+
+                {settings.instagramUrl && (
+                  <a
+                    href={settings.instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between py-2 px-3 bg-[#131f32] text-[#d4deeb] hover:text-[#f4efe6] text-xs font-medium rounded hover:bg-[#1b2b45] transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Instagram className="w-4 h-4 text-[#d4a86a]" />
+                      <span>Follow @la_casa_de_joe</span>
+                    </div>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#8fa3c0]" />
                   </a>
                 )}
               </div>
